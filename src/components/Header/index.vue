@@ -7,8 +7,8 @@
           <p>尚品汇欢迎您！</p>
           <p>
             <span>请</span>
-            <a href="###">登录</a>
-            <a href="###" class="register">免费注册</a>
+            <router-link to="/Login">登录</router-link>
+            <router-link to="/register" class="register">免费注册</router-link>
           </p>
         </div>
         <div class="typeList">
@@ -32,8 +32,8 @@
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
-          <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword" />
-          <button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
+          <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="searchName"/>
+          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="toSearch">搜索</button>
         </form>
       </div>
     </div>
@@ -42,7 +42,29 @@
 
 <script>
   export default {
-    name: 'Header'
+    name: 'Header',
+    data(){
+      return {
+        searchName:''
+      }
+    },
+    methods:{
+      toSearch(){
+        //利用this.$router对象跳转路由(包含了一些对象方法)  
+        //this.$route对象包含了路由的信息(path/params/query/)
+        /**
+         * 当使用编程式路由跳转时重复点击报错 NavigationDuplicated push没有添加回调
+         * 方法一：this.$router.push('/search',()=>{})
+         * 方法二: this.$router.push('/search').catch(()=>{})
+         */
+        /**
+         * this.$router.push(`/search?keyword=${this.searchName}`) 字符串query携带参数
+         *this.$router.push({path:'/search',query:{keyword:this.searchName}})  对象query携带参数
+         */
+        // this.$router.push(`/search/keyword=${this.searchName}`) //字符串params携带参数
+        this.$router.push({name:'search',params:{keyword:this.searchName}}) //对象params携带参数
+      }
+    }
   }
 </script>
 
