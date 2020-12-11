@@ -62,7 +62,12 @@
          *this.$router.push({path:'/search',query:{keyword:this.searchName}})  对象query携带参数
          */
         // this.$router.push(`/search/keyword=${this.searchName}`) //字符串params携带参数
-        this.$router.push({name:'search',params:{keyword:this.searchName}}) //对象params携带参数
+        if(this.keyword){
+          this.$router.push({name:'search',params:{keyword:this.searchName}}) //对象params携带参数
+        }else{
+          this.$router.push({name:'search'})
+         //[vue-router] missing param for named route "search": Expected "keyword" to match "[^\/]+?", but received ""
+        }
       }
     }
   }
